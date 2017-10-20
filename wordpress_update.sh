@@ -1,6 +1,6 @@
 #!/bin/bash
 # -------------------------------------
-# Usage: % ./wordpress_update2.sh
+# Usage: % ./wordpress_update.sh
 # Author: Eduarfo Crespo <eduardocrespo@gmail.com>
 # -------------------------------------
 
