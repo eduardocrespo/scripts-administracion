@@ -14,10 +14,10 @@ renice -n 19 $$
 BACKUPPATH=~/backups
 
 # Ruta al directorio donde se ubican las instalaciones de WordPress
-SITESTORE=/var/www
+SITESTORE=/var/www/darktv.es
 
 # Creamos array de sites basado en los nombres de carpeta encontrados
-SITELIST=($(ls -lh $SITESTORE | awk '{print $9}'))
+SITELIST=($(ls -lh $SITESTORE | grep "^d" | awk '{print $9}'))
 
 # Nos aseguramos de que la carpeta para los backups existe
 mkdir -p $BACKUPPATH
@@ -38,7 +38,7 @@ do
     # Hacemos backup de la bbdd de WordPress 
     wp db export $BACKUPPATH/$SITE.sql --allow-root
     NOW=$(date +"%m-%d-%Y")
-    tar -czf $BACKUPPATH/$SITE_$NOW.sql.gz $BACKUPPATH/$SITE.sql
+    tar -czf "$BACKUPPATH/$SITE.$NOW.sql.gz" $BACKUPPATH/$SITE.sql
     rm $BACKUPPATH/$SITE.sql
 
     # Ejecutamos la actualizacion completa
@@ -65,4 +65,3 @@ do
     sudo find $SITESTORE/$SITE -type f -exec chmod 644 {} +
     sudo find $SITESTORE/$SITE -type d -exec chmod 755 {} +
 done
-
