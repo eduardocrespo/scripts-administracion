@@ -37,7 +37,8 @@ do
     # tar -czf $BACKUPPATH/$SITE.tar .
     # Hacemos backup de la bbdd de WordPress 
     wp db export $BACKUPPATH/$SITE.sql --allow-root
-    tar -czf $BACKUPPATH/$SITE.sql.gz $BACKUPPATH/$SITE.sql
+    NOW=$(date +"%m-%d-%Y")
+    tar -czf $BACKUPPATH/$SITE_$NOW.sql.gz $BACKUPPATH/$SITE.sql
     rm $BACKUPPATH/$SITE.sql
 
     # Ejecutamos la actualizacion completa
@@ -49,8 +50,8 @@ do
     echo "Actualizando plugins."
     wp plugin update --all --allow-root;
 
-    echo "Actualizando themes."
-    wp theme update --all --allow-root;
+    # echo "Actualizando themes."
+    # wp theme update --all --allow-root;
 
     echo "Actualizando Wordpress."
     wp core update && wp core update-db;
